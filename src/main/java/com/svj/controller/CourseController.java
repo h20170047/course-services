@@ -1,11 +1,15 @@
 package com.svj.controller;
 
-import com.svj.dto.Course;
+import com.svj.dto.CourseFrequency;
+import com.svj.dto.CourseRequestDTO;
+import com.svj.dto.CourseResponseDTO;
+import com.svj.dto.ServiceResponse;
 import com.svj.service.CourseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -18,27 +22,29 @@ public class CourseController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addCourse(@RequestBody Course course){
-        Course newCourse= courseService.onboardCourse(course);
-        return new ResponseEntity<>(newCourse, HttpStatus.CREATED);
+    public ServiceResponse<CourseResponseDTO> addCourse(@RequestBody CourseRequestDTO course){
+        CourseResponseDTO newCourse= courseService.onboardCourse(course);
+        return new ServiceResponse<>(HttpStatus.CREATED, newCourse);
     }
 
     @GetMapping
-    public ResponseEntity<?> findAllCourses(){
-         return new ResponseEntity<>(courseService.viewAllCourses(),HttpStatus.OK);
+    public ServiceResponse<List<CourseResponseDTO>> findAllCourses(){
+         List<CourseResponseDTO> courseResponseDTOS= courseService.viewAllCourses();
+         return new ServiceResponse<>(HttpStatus.OK, courseResponseDTOS);
     }
 
     @GetMapping("/search/{courseId}")
-    public ResponseEntity<?> findCourse(@PathVariable Integer courseId){
-         return new ResponseEntity<>(courseService.findCourseById(courseId), HttpStatus.OK);
+    public ServiceResponse<CourseResponseDTO> findCourse(@PathVariable Integer courseId){
+         CourseResponseDTO courseResponseDTO= courseService.findCourseById(courseId);
+         return new ServiceResponse<>(HttpStatus.OK, courseResponseDTO);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> findCourseUsingReqParam(@RequestParam(required = false) Optional<Integer> courseId){
-        Course result = null;
+    public ServiceResponse<CourseResponseDTO> findCourseUsingReqParam(@RequestParam(required = false) Optional<Integer> courseId){
+        CourseResponseDTO result = null;
         if(courseId.isPresent())
              result= courseService.findCourseById(courseId.get());
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ServiceResponse<>(HttpStatus.OK, result);
     }
 
     @DeleteMapping("/{courseId}")
@@ -48,12 +54,15 @@ public class CourseController {
     }
 
     @PutMapping("/{courseId}")
-    public ResponseEntity<?> updateCourse(@PathVariable int courseId, @RequestBody Course course){
-         return new ResponseEntity<>(courseService.updateCourse(courseId, course), HttpStatus.OK);
+    public ServiceResponse<CourseResponseDTO> updateCourse(@PathVariable int courseId, @RequestBody CourseRequestDTO course){
+        CourseResponseDTO courseResponseDTO= courseService.updateCourse(courseId, course);
+         return new ServiceResponse<>(HttpStatus.OK, courseResponseDTO);
     }
 
     @GetMapping("/frequency")
-    public ResponseEntity<?> getCurrentFrequency(){
-         return new ResponseEntity<>(courseService.computeCourseFreq(), HttpStatus.OK);
+    public ServiceResponse<List<CourseFrequency>> getCurrentFrequency(){
+         courseService.computeCourseFreq();
+        List<CourseFrequency> freqList= courseService.computeCourseFreq();
+         return new ServiceResponse<>(HttpStatus.OK, freqList);
     }
 }
