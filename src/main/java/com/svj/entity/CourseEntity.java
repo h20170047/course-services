@@ -1,6 +1,5 @@
 package com.svj.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.svj.dto.CourseType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,4 +25,6 @@ public class CourseEntity {
     private CourseType courseType; //live or recording
     private double fees;
     private boolean isCertificateAvailable;
+    private String email;
+    private String contact;
 }

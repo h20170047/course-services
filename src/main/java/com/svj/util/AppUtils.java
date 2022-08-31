@@ -22,6 +22,8 @@ public class AppUtils {
         courseEntity.setCourseType(courseRequestDTO.getCourseType());
         courseEntity.setFees(courseRequestDTO.getFees());
         courseEntity.setCertificateAvailable(courseRequestDTO.isCertificateAvailable());
+        courseEntity.setContact(courseRequestDTO.getContact());
+        courseEntity.setEmail(courseRequestDTO.getEmail());
     }
 
     public static CourseResponseDTO mapEntityToDTO(CourseEntity courseEntity){
@@ -35,6 +37,8 @@ public class AppUtils {
         courseResponseDTO.setCourseType(courseEntity.getCourseType());
         courseResponseDTO.setFees(courseEntity.getFees());
         courseResponseDTO.setCertificateAvailable(courseEntity.isCertificateAvailable());
+        courseResponseDTO.setContact(courseEntity.getContact());
+        courseResponseDTO.setEmail(courseEntity.getEmail());
         return courseResponseDTO;
 
     }

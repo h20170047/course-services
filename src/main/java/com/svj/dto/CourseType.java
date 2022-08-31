@@ -1,26 +1,26 @@
 package com.svj.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
-@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum CourseType {
-    @JsonProperty("Live") // How can we map values Live, 1 to the same property?
-    Live("Live", 1),
-    @JsonProperty("Recording")
-    RECORDING("Recording", 0);
-    private String courseTypeText;
-    private int courseVal;
-    CourseType(String courseTypeText, int val){
-        this.courseTypeText= courseTypeText;
-        courseVal= val;
+    LIVE( "Live"),
+    RECORDING( "Recording");
+    private String courseAlias;
+    private CourseType(String alias){
+        this.courseAlias= alias;
     }
 
-    public String getCourseTypeText() {
-        return courseTypeText;
+    public String getCourseAlias() {
+        return this.courseAlias;
     }
 
-    public int getCourseVal() {
-        return courseVal;
+    @JsonCreator
+    public static CourseType getCourseType(String value){
+        for(CourseType courseType: CourseType.values()){
+            if(courseType.getCourseAlias().equalsIgnoreCase(value)){
+                return courseType;
+            }
+        }
+        return null;
     }
 }
