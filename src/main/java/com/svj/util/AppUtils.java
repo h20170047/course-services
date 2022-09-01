@@ -1,5 +1,7 @@
 package com.svj.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.svj.dto.CourseRequestDTO;
 import com.svj.dto.CourseResponseDTO;
 import com.svj.entity.CourseEntity;
@@ -40,7 +42,15 @@ public class AppUtils {
         courseResponseDTO.setContact(courseEntity.getContact());
         courseResponseDTO.setEmail(courseEntity.getEmail());
         return courseResponseDTO;
+    }
 
+    public static String convertObjectToJson(Object object){
+        try {
+            return new ObjectMapper().writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

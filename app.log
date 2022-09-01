@@ -1,0 +1,39 @@
+2022-09-01 16:23:54,527 [INFO] com.svj.CourseServiceApplication {main} Starting CourseServiceApplication using Java 1.8.0_202 on LAPTOP-5ERFPRSM with PID 30028 (C:\Users\svjra\Documents\git\Springboot\course-services\target\classes started by svjra in C:\Users\svjra\Documents\git\Springboot\course-services)
+2022-09-01 16:23:54,527 [DEBUG] com.svj.CourseServiceApplication {main} Running with Spring Boot v2.7.2, Spring v5.3.22
+2022-09-01 16:23:54,527 [INFO] com.svj.CourseServiceApplication {main} No active profile set, falling back to 1 default profile: "default"
+2022-09-01 16:23:55,770 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate {main} Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-09-01 16:23:55,856 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate {main} Finished Spring Data repository scanning in 59 ms. Found 1 JPA repository interfaces.
+2022-09-01 16:23:57,114 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer {main} Tomcat initialized with port(s): 8080 (http)
+2022-09-01 16:23:57,135 [INFO] org.apache.catalina.core.StandardService {main} Starting service [Tomcat]
+2022-09-01 16:23:57,138 [INFO] org.apache.catalina.core.StandardEngine {main} Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-09-01 16:23:57,429 [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] {main} Initializing Spring embedded WebApplicationContext
+2022-09-01 16:23:57,429 [INFO] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext {main} Root WebApplicationContext: initialization completed in 2845 ms
+2022-09-01 16:23:57,524 [INFO] com.zaxxer.hikari.HikariDataSource {main} HikariPool-1 - Starting...
+2022-09-01 16:23:57,870 [INFO] com.zaxxer.hikari.HikariDataSource {main} HikariPool-1 - Start completed.
+2022-09-01 16:23:57,884 [INFO] org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration {main} H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2022-09-01 16:23:58,094 [INFO] org.hibernate.jpa.internal.util.LogHelper {main} HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-09-01 16:23:58,196 [INFO] org.hibernate.Version {main} HHH000412: Hibernate ORM core version 5.6.10.Final
+2022-09-01 16:23:58,515 [INFO] org.hibernate.annotations.common.Version {main} HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-09-01 16:23:58,760 [INFO] org.hibernate.dialect.Dialect {main} HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2022-09-01 16:23:59,790 [INFO] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator {main} HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-09-01 16:23:59,804 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean {main} Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-09-01 16:24:00,295 [WARN] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration {main} spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-09-01 16:24:00,909 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer {main} Tomcat started on port(s): 8080 (http) with context path ''
+2022-09-01 16:24:00,917 [INFO] com.svj.CourseServiceApplication {main} Started CourseServiceApplication in 7.148 seconds (JVM running for 7.916)
+2022-09-01 16:24:12,225 [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] {http-nio-8080-exec-2} Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-01 16:24:12,226 [INFO] org.springframework.web.servlet.DispatcherServlet {http-nio-8080-exec-2} Initializing Servlet 'dispatcherServlet'
+2022-09-01 16:24:12,228 [INFO] org.springframework.web.servlet.DispatcherServlet {http-nio-8080-exec-2} Completed initialization in 2 ms
+2022-09-01 16:24:12,542 [INFO] com.svj.controller.CourseController {http-nio-8080-exec-2} CourseController:addCourse Request payload: {"name":"AWS","trainerName":"Santhosh","courseDescription":"Course for Spring","duration":"90","startDate":"18-09-2022","courseType":"RECORDING","fees":5000.0,"email":"abc@gmail.com","contact":"1234568991","certificateAvailable":true}
+2022-09-01 16:24:12,542 [INFO] com.svj.service.CourseService {http-nio-8080-exec-2} CourseService::onboardCourse method execution started.
+2022-09-01 16:24:12,815 [DEBUG] com.svj.service.CourseService {http-nio-8080-exec-2} course entity response from Database {"courseId":1,"name":"AWS","trainerName":"Santhosh","courseDescription":"Course for Spring","duration":"90","startDate":1663459200000,"courseType":"RECORDING","fees":5000.0,"email":"abc@gmail.com","contact":"1234568991","certificateAvailable":true}
+2022-09-01 16:24:12,820 [DEBUG] com.svj.service.CourseService {http-nio-8080-exec-2} CourseService::onboardCourse method response {"name":"AWS","trainerName":"Santhosh","courseDescription":"Course for Spring","duration":"90","startDate":"18-09-2022","courseType":"RECORDING","fees":5000.0,"email":"abc@gmail.com","contact":"1234568991","courseId":1,"courseUniqueCode":"b3275793","certificateAvailable":true}
+2022-09-01 16:24:12,820 [INFO] com.svj.service.CourseService {http-nio-8080-exec-2} CourseService::onboardCourse method execution ended.
+2022-09-01 16:24:12,835 [INFO] com.svj.controller.CourseController {http-nio-8080-exec-2} CourseController:addCourse Response: {"status":"OK","response":{"name":"AWS","trainerName":"Santhosh","courseDescription":"Course for Spring","duration":"90","startDate":"18-09-2022","courseType":"RECORDING","fees":5000.0,"email":"abc@gmail.com","contact":"1234568991","courseId":1,"courseUniqueCode":"b3275793","certificateAvailable":true}}
+2022-09-01 16:25:08,775 [INFO] com.svj.controller.CourseController {http-nio-8080-exec-3} CourseController:deleteCourse deleting course with id 2
+2022-09-01 16:25:08,784 [INFO] com.svj.service.CourseService {http-nio-8080-exec-3} CourseService::deleteCourse method exceution started..
+2022-09-01 16:25:08,784 [DEBUG] com.svj.service.CourseService {http-nio-8080-exec-3} CourseService::deleteCourse method input 2
+2022-09-01 16:25:08,865 [ERROR] com.svj.service.CourseService {http-nio-8080-exec-3} CourseService::deleteCourse exception occured while deleting the course object- No class com.svj.entity.CourseEntity entity with id 2 exists!
+2022-09-01 16:27:05,667 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean {SpringApplicationShutdownHook} Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-09-01 16:27:05,694 [INFO] org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl {SpringApplicationShutdownHook} HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+2022-09-01 16:27:05,827 [INFO] com.zaxxer.hikari.HikariDataSource {SpringApplicationShutdownHook} HikariPool-1 - Shutdown initiated...
+2022-09-01 16:27:05,859 [INFO] com.zaxxer.hikari.HikariDataSource {SpringApplicationShutdownHook} HikariPool-1 - Shutdown completed.

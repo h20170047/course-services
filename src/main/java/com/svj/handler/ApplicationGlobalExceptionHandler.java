@@ -43,6 +43,7 @@ public class ApplicationGlobalExceptionHandler {
     }
 
     @ExceptionHandler(CourseServiceBusinessException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ServiceResponse<?> handleServiceException(CourseServiceBusinessException exception){
         ServiceResponse<?> serviceResponse= new ServiceResponse<>();
         ErrorDTO errorDTO= new ErrorDTO(exception.getMessage());
