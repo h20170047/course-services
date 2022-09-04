@@ -5,6 +5,11 @@ import com.svj.dto.CourseResponseDTO;
 import com.svj.dto.ServiceResponse;
 import com.svj.service.CourseService;
 import com.svj.util.AppUtils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -27,18 +32,26 @@ public class CourseController {
          log= LoggerFactory.getLogger(CourseController.class);
     }
 
+    @Operation(summary = "Add a new course to system")
+    @ApiResponses(value={
+            @ApiResponse(responseCode ="201", description="course added successfully", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = CourseResponseDTO.class))
+            }),
+            @ApiResponse(responseCode ="400", description="validation error")
+    })
     @PostMapping
     public ServiceResponse<CourseResponseDTO> addCourse(@Valid @RequestBody CourseRequestDTO course){
          log.info("CourseController:addCourse Request payload: {}", AppUtils.convertObjectToJson(course));
         CourseResponseDTO newCourse= courseService.onboardCourse(course);
         ServiceResponse<CourseResponseDTO> serviceResponse= new ServiceResponse<>();
-        serviceResponse.setStatus(HttpStatus.OK);
+        serviceResponse.setStatus(HttpStatus.CREATED);
         serviceResponse.setResponse(newCourse);
         log.info("CourseController:addCourse Response: {}", AppUtils.convertObjectToJson(serviceResponse));
         return serviceResponse;
     }
 
     @GetMapping
+    @Operation(summary = "Fetch all courses")
     public ServiceResponse<?> findAllCourses(){
          log.info("CourseController:findAllCourses starting finaAllCourses method");
         ServiceResponse serviceResponse= new ServiceResponse();
@@ -49,6 +62,13 @@ public class CourseController {
          return serviceResponse;
     }
 
+    @Operation(summary = "Find course by courseId")
+    @ApiResponses(value={
+            @ApiResponse(responseCode ="200", description="course found", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = CourseResponseDTO.class))
+            }),
+            @ApiResponse(responseCode ="400", description="course not found with given ID")
+    })
     @GetMapping("/search/{courseId}")
     public ServiceResponse<?> findCourse(@PathVariable Integer courseId){
          log.info("CourseController:findCourse starting method with request- {}",courseId);
@@ -60,6 +80,8 @@ public class CourseController {
          return serviceResponse;
     }
 
+
+    @Operation(summary = "Fetch course by given id")
     @GetMapping("/search")
     public ResponseEntity<?> findCourseUsingReqParam(@RequestParam(required = false) Optional<Integer> courseId){
          log.warn("CourseController:findCourseUsingReqParam is a depricated method, please use findCourse");
@@ -69,6 +91,7 @@ public class CourseController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @Operation(summary = "Delete course by courseID")
     @DeleteMapping("/{courseId}")
     public ResponseEntity<?> deleteCourse(@PathVariable  Integer courseId){
          log.info("CourseController:deleteCourse deleting course with id {}", courseId);
@@ -76,6 +99,7 @@ public class CourseController {
          return new ResponseEntity<>("", HttpStatus.NO_CONTENT);
     }
 
+    @Operation(summary = "update the  course in system")
     @PutMapping("/{courseId}")
     public ServiceResponse<CourseResponseDTO> updateCourse(@PathVariable int courseId, @RequestBody @Valid CourseRequestDTO course){
         log.info("CourseController:updateCourse Request payload {} and {}", AppUtils.convertObjectToJson(course), courseId);
@@ -87,6 +111,7 @@ public class CourseController {
          return serviceResponse;
     }
 
+    @Operation(summary = "Get count of different types of courses")
     @GetMapping("/frequency")
     public ResponseEntity<?> getCurrentFrequency(){
          return new ResponseEntity<>(courseService.computeCourseFreq(), HttpStatus.OK);
