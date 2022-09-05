@@ -1,8 +1,6 @@
 package com.svj.controller;
 
-import com.svj.dto.CourseRequestDTO;
-import com.svj.dto.CourseResponseDTO;
-import com.svj.dto.ServiceResponse;
+import com.svj.dto.*;
 import com.svj.service.CourseService;
 import com.svj.util.AppUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -83,12 +81,15 @@ public class CourseController {
 
     @Operation(summary = "Fetch course by given id")
     @GetMapping("/search")
-    public ResponseEntity<?> findCourseUsingReqParam(@RequestParam(required = false) Optional<Integer> courseId){
+    public ServiceResponse<?> findCourseUsingReqParam(@RequestParam(required = false) Optional<Integer> courseId){
          log.warn("CourseController:findCourseUsingReqParam is a depricated method, please use findCourse");
         CourseResponseDTO result = null;
+        ServiceResponse<CourseResponseDTO> serviceResponse= new ServiceResponse<>();
         if(courseId.isPresent())
              result= courseService.findCourseById(courseId.get());
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        serviceResponse.setResponse(result);
+        serviceResponse.setStatus(HttpStatus.OK);
+        return serviceResponse;
     }
 
     @Operation(summary = "Delete course by courseID")
@@ -113,8 +114,8 @@ public class CourseController {
 
     @Operation(summary = "Get count of different types of courses")
     @GetMapping("/frequency")
-    public ResponseEntity<?> getCurrentFrequency(){
-         return new ResponseEntity<>(courseService.computeCourseFreq(), HttpStatus.OK);
+    public ServiceResponse<?> getCurrentFrequency(){
+         return new ServiceResponse<List<CourseFrequency>>(HttpStatus.OK, courseService.computeCourseFreq());
     }
 
     @GetMapping("/log")
